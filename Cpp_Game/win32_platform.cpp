@@ -33,7 +33,7 @@ LRESULT CALLBACK window_callback(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lPa
 			render_state.width = rect.right - rect.left;
 			render_state.height = rect.bottom - rect.top;
 
-			// Unsigned 32 bit intiger is reserved for an 8 bit word.
+			// Size is the number of pixels multiplied by the number of bytes per pixel.
 			int size = render_state.width * render_state.height * sizeof(unsigned int);
 
 			if (render_state.memory) VirtualFree(render_state.memory, 0, MEM_RELEASE);

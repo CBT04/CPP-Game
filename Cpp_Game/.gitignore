@@ -1,0 +1,29 @@
+# Ignore build output inside project folder
+/CPP_Game/CPP_Game/Release/
+/CPP_Game/CPP_Game/x64/
+
+# Ignore build output at root level
+/CPP_Game/Release/
+/CPP_Game/x64/
+
+# Visual Studio files
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Compiled binaries and objects
+*.obj
+*.exe
+*.dll
+*.pdb
+
+# Others
+ipch/
+*.aps
+*.ncb
+*.opensdf
+*.tlog
+*.lastbuildstate
+*.log
