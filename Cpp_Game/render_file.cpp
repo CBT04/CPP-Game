@@ -4,7 +4,7 @@ internal void render_background() {
 	u32* pixel = (u32*)render_state.memory;
 	for (int y = 0; y < render_state.height; y++) {
 		for (int x = 0; x < render_state.width; x++) {
-			*pixel++ = 0x00FFFF;
+			*pixel++ = 0xffffff;
 		}
 	}
 }
@@ -42,8 +42,8 @@ internal void draw_rect(float x, float y, float half_size_x, float half_size_y, 
 	half_size_x *= render_state.height * render_scale;
 	half_size_y *= render_state.height * render_scale;
 
-	x = render_state.width / 2.f;
-	y = render_state.height / 2.f;
+	x += render_state.width / 2.f;
+	y += render_state.height / 2.f;
 
 	int x0 = x - half_size_x;
 	int x1 = x + half_size_x;

@@ -11,7 +11,9 @@ struct Render_State {
 
 Render_State render_state;
 
+#include "platform_common.cpp"
 #include "render_file.cpp"
+#include "game.cpp"
 
 /* Callback function used to return the operation based on the message sent by the window. */
 LRESULT CALLBACK window_callback(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
@@ -73,20 +75,69 @@ int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int n
 	HWND window = CreateWindow(window_class.lpszClassName, L"New Game", WS_OVERLAPPEDWINDOW | WS_VISIBLE, CW_USEDEFAULT, CW_USEDEFAULT, 1280, 720, 0, 0, hInstance, 0);
 	HDC hdc = GetDC(window);
 
+	Input input = {};
+	int y = 0;
+	int x = 0;
+
+	float delta_time = 0.016666f;
+	LARGE_INTEGER frame_begin_time;
+	QueryPerformanceCounter(&frame_begin_time);
+
+	float performance_frequency;
+	{
+		LARGE_INTEGER perf;
+		QueryPerformanceFrequency(&perf);
+		performance_frequency = (float)perf.QuadPart;
+	}
+
 	while (running) {
 		// Input
 		MSG message;
-		while (PeekMessage(&message, window, 0, 0, PM_REMOVE)) {
-			TranslateMessage(&message);
-			DispatchMessage(&message);
+
+		for (int i = 0; i < BUTTON_COUNT; i++) {
+			input.buttons[i].changed = false;
 		}
+		while (PeekMessage(&message, window, 0, 0, PM_REMOVE)) {
+			switch (message.message) {
+				case WM_KEYUP:
+				case WM_KEYDOWN: {
+					u32 vk_code = (u32)message.wParam;
+					bool is_down = ((message.lParam & (1 << 31)) == 0);
+
+					#define process_button(b, vk)\
+					case vk: {\
+						input.buttons[b].is_down = is_down;\
+						input.buttons[b].changed = true;\
+					} break;
+
+					switch (vk_code) {
+						process_button(BUTTON_UP, 'W');
+						process_button(BUTTON_DOWN, 'S');
+						process_button(BUTTON_LEFT, 'A');
+						process_button(BUTTON_RIGHT, 'D');
+					}
+				} break;
+
+		        default: {
+					TranslateMessage(&message);
+					DispatchMessage(&message);
+				}
+			}
+		}
+		
 		// Simulate
-		render_background();
-		clear_screen(0xffffff);
-		draw_rect(0, 0, 10, 10, 0xff0000);
+		simulate_game(&input, delta_time);
 
 		// Render
 		StretchDIBits(hdc, 0, 0, render_state.width, render_state.height, 0, 0, render_state.width, render_state.height, render_state.memory, &render_state.bitmap_info, DIB_RGB_COLORS, SRCCOPY);
+
+		LARGE_INTEGER frame_end_time;
+		QueryPerformanceCounter(&frame_end_time);
+		delta_time = (float)(frame_end_time.QuadPart - frame_begin_time.QuadPart) / performance_frequency;
+		if (delta_time > .2f) {
+			delta_time = 0.016666f;
+		}
+		frame_begin_time = frame_end_time;
 	}
 }
 
