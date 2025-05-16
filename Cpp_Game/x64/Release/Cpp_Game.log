@@ -26,7 +26,7 @@ C:\Users\corey\source\repos\Cpp_Game\Cpp_Game\render_file.cpp(50,9): warning C42
 C:\Users\corey\source\repos\Cpp_Game\Cpp_Game\render_file.cpp(51,9): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
   (compiling source file 'win32_platform.cpp')
   
-C:\Users\corey\source\repos\Cpp_Game\Cpp_Game\game.cpp(8,1): warning C4091: 'static ': ignored on left of 'int' when no variable is declared
+C:\Users\corey\source\repos\Cpp_Game\Cpp_Game\game.cpp(13,1): warning C4091: 'static ': ignored on left of 'int' when no variable is declared
   (compiling source file 'win32_platform.cpp')
   
   Generating code
