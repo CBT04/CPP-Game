@@ -50,5 +50,5 @@ internal void draw_rect(float x, float y, float half_size_x, float half_size_y, 
 	int y0 = y - half_size_y;
 	int y1 = y + half_size_y;
 
-	draw_rect_in_pixels(x0, y0, x1, y1, 0xff0000);
+	draw_rect_in_pixels(x0, y0, x1, y1, colour);
 }

@@ -90,6 +90,8 @@ int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int n
 		performance_frequency = (float)perf.QuadPart;
 	}
 
+	init_platforms();
+
 	while (running) {
 		// Input
 		MSG message;
@@ -124,7 +126,6 @@ int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int n
 				}
 			}
 		}
-		
 		// Simulate
 		movement_simulation(&input, delta_time);
 
