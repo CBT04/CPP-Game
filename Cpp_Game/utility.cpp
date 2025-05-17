@@ -3,7 +3,7 @@ typedef unsigned int u32;
 #define global_variable static;
 #define internal static;
 
-// Keep values within a given range.
+/* Keeps values within a given range. */ 
 inline int clamp(int min, int val, int max) {
 	if (val < min) return min;
 	if (val > max) return max;
