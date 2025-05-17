@@ -114,9 +114,12 @@ int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int n
 
 					switch (vk_code) {
 						process_button(BUTTON_JUMP, 'W');
+						process_button(BUTTON_JUMP, VK_SPACE);
 						process_button(BUTTON_LEFT, 'A');
 						process_button(BUTTON_RIGHT, 'D');
 						process_button(BUTTON_DASH, 'E');
+						process_button(BUTTON_RESET, 'R');
+						process_button(BUTTON_STOMP, 'S');
 					}
 				} break;
 
@@ -137,7 +140,7 @@ int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int n
 
 		// Delta time is used to process movement independently of frame rate.
 		delta_time = (float)(frame_end_time.QuadPart - frame_begin_time.QuadPart) / performance_frequency;
-		if (delta_time > .2f) {
+		if (delta_time > .02f) {
 			delta_time = 0.016666f;
 		}
 		frame_begin_time = frame_end_time;
